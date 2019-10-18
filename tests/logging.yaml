@@ -1,0 +1,31 @@
+version: 1
+formatters:
+  simple:
+    format: '%(asctime)s %(app)s %(levelname)-8s %(process)d --- thread-[%(threadName)s] %(name)s: %(message)s'
+  jsonSimple:
+    class: huitool.logging.formatters.JsonFormatter
+    format: '{"timestamp":"${asctime}","app":"${app}","level":"${levelname}","thread":"${threadName}","logger":"${name}","message":"${message}"}'
+    style: '$' 
+filters:
+  allow_extra: 
+    (): huitool.logging.filters.ContextFilter
+    name: contextFilter
+    extra: cfg://extra
+handlers:
+  console:
+    class: logging.StreamHandler
+    formatter: simple
+    filters: [allow_extra]
+    stream: ext://sys.stdout
+  file:
+    class: logging.handlers.TimedRotatingFileHandler
+    formatter: jsonSimple
+    filters: [allow_extra]
+    filename: app.log.json
+    backupCount: 3      
+    encoding: utf-8
+extra:
+  app: python    
+root:
+  level: DEBUG
+  handlers: [console, file]    
