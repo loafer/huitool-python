@@ -6,7 +6,7 @@ from huitool.logging import settings as logging_settings
 def main():
     print(sys.path)
 
-    logging_settings.configure(logging_config_file='d:\\00_projects\\huitool-python\\tests\\logging.yaml')
+    logging_settings.configure(logging_config_file='.\\tests\logging.yaml')
     # logging_settings.configure(extra={'app':'python'})
     # logging_settings.configure(logging_file='python.log.json', extra={'app':'python'})
     
